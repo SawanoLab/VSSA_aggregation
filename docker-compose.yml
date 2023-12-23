@@ -1,0 +1,35 @@
+version: "3.5"
+
+services:
+  api:
+    image: "vssa_aggregation_dev:0.1.0"
+    container_name: "vssa_aggregation_dev"
+    build:
+      context: ./docker/api
+      dockerfile: Dockerfile
+    ports:
+      - "10555:8000"
+    volumes:
+      - ./app:/usr/src/app/app:cached
+      - ./scripts:/usr/src/app/scripts:cached
+      - ./tests:/usr/src/app/tests:cached
+      - ./htdocs:/usr/src/app/htdocs:cached
+      - ./log/app:/var/log/app:cached
+    working_dir: /usr/src/app/scripts
+    command: bash -c "/usr/src/app/scripts/run_server.sh"
+    networks:
+      - volley_network
+    environment:
+      APP_ENV: "development"
+      TZ: "Asia/Tokyo"
+    env_file:
+      - .env.development
+
+networks:
+  default:
+    external:
+      name: bridge
+  volley_network:
+    name: volley_network
+    driver: bridge
+    external: true
