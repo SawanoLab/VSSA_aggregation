@@ -30,5 +30,11 @@ Once the Docker containers are up and running, access the API container with thi
 
 `$ docker-compose run api bash`
 
+## Open API
+Swagger UI: Open your web browser and go to http://localhost:10555/docs. 
+
+OpenAPI Specification: To view the detailed specification of your API, visit http://localhost:10555/openapi.json.
+
+
 
 The file structure is based on the recommendations found in this article:　https://zenn.dev/yusugomori/articles/a3d5dc8baf9e386a58e5
