@@ -24,7 +24,7 @@ async def create_player(
     return item
 
 
-@player_router.delete('/', response_model=PlayerResponse)
+@player_router.delete('/{player_id}', response_model=PlayerResponse)
 async def delete_player(
         player_id: str,
         user_id: str = Depends(get_current_user)
