@@ -182,3 +182,4 @@ pyrightconfig.json
 app/__pycache__/
 app/models/__pycache__/
 *__pycache__/
+.env.development
