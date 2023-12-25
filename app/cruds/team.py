@@ -5,7 +5,9 @@ from env import VSSA_API
 from schemas.team import TeamResponse
 
 
-async def get_teams(user_id: str) -> List[TeamResponse]:
+async def get_teams(
+        user_id: str
+) -> List[TeamResponse]:
     try:
         response = requests.get(
             f'{VSSA_API}/teams?user_id={user_id}')
@@ -33,7 +35,9 @@ async def create_team(team: TeamResponse) -> TeamResponse:
     return team
 
 
-async def delete_team(user_id: str, team_id: str) -> TeamResponse:
+async def delete_team(
+        user_id: str,
+        team_id: str) -> TeamResponse:
     try:
         response = requests.delete(
             f'{VSSA_API}/teams/{team_id}?user_id={user_id}')
@@ -44,7 +48,10 @@ async def delete_team(user_id: str, team_id: str) -> TeamResponse:
                             detail='No teams found')
 
 
-async def update_team(user_id: str, team_id: str, team: TeamResponse) -> TeamResponse:
+async def update_team(
+        user_id: str,
+        team_id: str,
+        team: TeamResponse) -> TeamResponse:
     try:
         json = team.dict()
         response = requests.put(

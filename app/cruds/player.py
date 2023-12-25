@@ -5,7 +5,9 @@ from env import VSSA_API
 from schemas.player import PlayerBase, PlayerResponse
 
 
-async def get_players(user_id: str) -> List[PlayerResponse]:
+async def get_players(
+        user_id: str,
+) -> List[PlayerResponse]:
     try:
         response = requests.get(
             f'{VSSA_API}/players?user_id={user_id}')
@@ -33,7 +35,9 @@ async def create_player(player: PlayerBase) -> PlayerResponse:
     return player
 
 
-async def delete_player(user_id: str, player_id: str) -> bool:
+async def delete_player(
+        user_id: str,
+        player_id: str) -> bool:
     try:
         response = requests.delete(
             f'{VSSA_API}/players/?user_id={user_id}&player_id={player_id}')
@@ -45,7 +49,10 @@ async def delete_player(user_id: str, player_id: str) -> bool:
     return player
 
 
-async def update_player(user_id: str, player_id: str, player: PlayerBase) -> PlayerResponse:
+async def update_player(
+        user_id: str,
+        player_id: str,
+        player: PlayerBase) -> PlayerResponse:
     try:
         json = player.dict()
         response = requests.put(

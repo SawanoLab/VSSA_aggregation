@@ -1,14 +1,19 @@
 import os
-from fastapi import FastAPI, APIRouter, Request, status
+from fastapi import FastAPI, APIRouter, Request, status, Depends
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from starlette.middleware.cors import CORSMiddleware
 
+from auth.JWTBearer import JWTBearer
+from auth.auth import jwks
 from routers.season import season_router
 from routers.team import team_router
 from routers.player import player_router
 from routers.match import match_router
 from routers.attack import attack_router
+
+
+auth = JWTBearer(jwks)
 
 router = APIRouter()
 
@@ -16,31 +21,31 @@ router = APIRouter()
 router.include_router(
     season_router,
     prefix='/seasons',
-    tags=['seasons']
+    tags=['seasons'],
 )
 
 router.include_router(
     team_router,
     prefix='/teams',
-    tags=['teams']
+    tags=['teams'],
 )
 
 router.include_router(
     player_router,
     prefix='/players',
-    tags=['players']
+    tags=['players'],
 )
 
 router.include_router(
     match_router,
     prefix='/matches',
-    tags=['matches']
+    tags=['matches'],
 )
 
 router.include_router(
     attack_router,
     prefix='/attacks',
-    tags=['attacks']
+    tags=['attacks'],
 )
 
 app = FastAPI()
@@ -54,7 +59,6 @@ async def handler(request: Request, exc: RequestValidationError):
     print(exc)
     return JSONResponse(content={}, status_code=status.HTTP_400_BAD_REQUEST)
 
-
 origins = [os.environ.get('ALLOW_ORIGIN')]
 
 app.add_middleware(
@@ -65,4 +69,8 @@ app.add_middleware(
     allow_headers=['*']
 )
 
-app.include_router(router)
+app.include_router(
+    router,
+    prefix='/api/v1',
+    dependencies=[Depends(auth)]
+)

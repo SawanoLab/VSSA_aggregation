@@ -5,7 +5,9 @@ from env import VSSA_API
 from schemas.attack import AttackBase, AttackResponse
 
 
-async def get_attacks(user_id: str, match_id: str) -> List[AttackResponse]:
+async def get_attacks(
+        user_id: str,
+        match_id: str) -> List[AttackResponse]:
     try:
         response = requests.get(
             f'{VSSA_API}/attacks?user_id={user_id}&match_id={match_id}')
@@ -34,7 +36,9 @@ async def create_attack(attack: AttackBase) -> AttackResponse:
     return attack
 
 
-async def delete_attack(user_id: str, attack_id: str) -> AttackResponse:
+async def delete_attack(
+        user_id: str,
+        attack_id: str) -> AttackResponse:
     try:
         response = requests.delete(
             f'{VSSA_API}/attacks/{attack_id}?user_id={user_id}')

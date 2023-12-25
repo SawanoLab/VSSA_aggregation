@@ -5,7 +5,9 @@ from env import VSSA_API
 from schemas.season import SeasonResponse, SeasonCreate, SeasonBase
 
 
-async def get_seasons(user_id: str) -> List[SeasonResponse]:
+async def get_seasons(
+        user_id: str,
+) -> List[SeasonResponse]:
     try:
         response = requests.get(f'{VSSA_API}/seasons/?user_id={user_id}')
         data = response.json()
@@ -34,7 +36,9 @@ async def create_season(season: SeasonBase) -> SeasonResponse:
     return season
 
 
-async def delete_season(user_id: str, season_id: str) -> SeasonResponse:
+async def delete_season(
+        user_id: str,
+        season_id: str) -> SeasonResponse:
     try:
         response = requests.delete(
             f'{VSSA_API}/seasons/{season_id}?user_id={user_id}')
@@ -46,7 +50,10 @@ async def delete_season(user_id: str, season_id: str) -> SeasonResponse:
     return season
 
 
-async def update_season(user_id: str, season_id: str, season: SeasonCreate) -> SeasonResponse:
+async def update_season(
+        user_id: str,
+        season_id: str,
+        season: SeasonCreate) -> SeasonResponse:
     try:
         json = season.dict()
         response = requests.put(
