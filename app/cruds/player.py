@@ -40,7 +40,7 @@ async def delete_player(
         player_id: str) -> bool:
     try:
         response = requests.delete(
-            f'{VSSA_API}/players/?user_id={user_id}&player_id={player_id}')
+            f'{VSSA_API}/players/{player_id}?user_id={user_id}')
         data = response.json()
         player = PlayerResponse(**data)
     except Exception:
@@ -56,7 +56,7 @@ async def update_player(
     try:
         json = player.dict()
         response = requests.put(
-            f'{VSSA_API}/players/?user_id={user_id}&player_id={player_id}', json=json)
+            f'{VSSA_API}/players/{player_id}?user_id={user_id}', json=json)
         data = response.json()
         player = PlayerResponse(**data)
     except Exception:

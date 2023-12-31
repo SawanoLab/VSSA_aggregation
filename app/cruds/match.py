@@ -50,3 +50,16 @@ async def get_matche(
         raise HTTPException(status_code=404,
                             detail='No matches found')
     return match
+
+
+async def delete_match(
+        user_id: str,
+        match_id: str) -> str:
+    try:
+        response = requests.delete(
+            f'{VSSA_API}/matches/{match_id}?user_id={user_id}')
+        data = response.json()
+        return data
+    except Exception:
+        raise HTTPException(status_code=404,
+                            detail='No matches found')
