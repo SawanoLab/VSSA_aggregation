@@ -60,6 +60,9 @@ async def delete_match(
             f'{VSSA_API}/matches/{match_id}?user_id={user_id}')
         data = response.json()
         return data
+    except TimeoutError:
+        raise HTTPException(status_code=408,
+                            detail='Timeout')
     except Exception:
         raise HTTPException(status_code=404,
                             detail='No matches found')

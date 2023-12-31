@@ -48,5 +48,6 @@ async def delete_match(
 ):
     item = await crud_match.delete_match(
         user_id=user_id,
-        match_id=match_id)
+        match_id=match_id
+    )
     return item
